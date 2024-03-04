@@ -9,6 +9,6 @@ class Bullet(Turtle):
         self.color("white")
         self.goto(x, y)
 
-        
+
     def shoot(self):
-        self.goto(self.xcor(), self.ycor() + 20)
+        self.goto(self.xcor(), self.ycor() + 2)

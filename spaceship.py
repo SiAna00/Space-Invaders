@@ -9,11 +9,13 @@ class SpaceShip(Turtle):
         self.shapesize(stretch_wid=None, stretch_len=3)
         self.color("white")
 
+
     def move_right(self):
         self.forward(20)
 
         if self.pos() == (-300.00, -270.00):
             self.setx(self.xcor() + 20)
+
 
     def move_left(self):
         self.backward(20)
