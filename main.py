@@ -32,6 +32,7 @@ screen.listen()
 while True:
     screen.update()
 
+    aliens.move()
     my_bullet.shoot()
 
 screen.exitonclick()
