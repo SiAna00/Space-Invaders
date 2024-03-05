@@ -1,9 +1,9 @@
+import os
 from turtle import *
 from alienships import AlienShips
 from barriers import Barrier
 from bullet import Bullet
 from spaceship import SpaceShip
-import time
 
 
 def create_my_bullet():
@@ -47,10 +47,10 @@ while True:
     aliens.move()
 
     aliens.create_bullet()
-    aliens.shoot(-1)
+    aliens.shoot(-2)
 
     if my_bullet != None:
-        my_bullet.shoot(1)
+        my_bullet.shoot(2)
 
         # Detect when aliens are hit with my_bullet
         for alien in aliens.aliens:
@@ -60,6 +60,12 @@ while True:
         for barrier in barriers.barriers:
             if my_bullet.distance(barrier) <= 20:
                 barrier.reset()
+                my_bullet.reset()
+
+        # detect when my_bullet collides with alien bullets
+        for bullet in aliens.all_alien_bullets:
+            if bullet.distance(my_bullet) < 1:
+                bullet.reset()
                 my_bullet.reset()
 
     # Detect when my_ship is hit with alien bullets
@@ -74,6 +80,5 @@ while True:
             if bullet.distance(barrier) < 20:
                 barrier.reset()
                 bullet.reset()
-
 
 screen.exitonclick()

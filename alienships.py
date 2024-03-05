@@ -2,6 +2,8 @@ from turtle import *
 from bullet import Bullet
 import random
 
+addshape(name="alien.gif", shape=None)
+
 class AlienShips():
     def __init__(self):
         self.aliens = []
@@ -14,7 +16,7 @@ class AlienShips():
                 new_alien = Turtle()
                 new_alien.up()
                 new_alien.right(90)
-                new_alien.shape("triangle")
+                new_alien.shape("alien.gif")
                 new_alien.color("green")
                 new_alien.goto(start_pos_x + i * 30, start_pos_y + j * 30)
                 self.aliens.append(new_alien)
@@ -26,7 +28,7 @@ class AlienShips():
 
     
     def create_bullet(self):
-        random_chance = random.randint(1, 200)
+        random_chance = random.randint(1, 100)
 
         if random_chance == 1:
             random_alien = random.choice(self.aliens)
@@ -36,4 +38,4 @@ class AlienShips():
     
     def shoot(self, i):
         for bullet in self.all_alien_bullets:
-            bullet.goto(bullet.xcor(), bullet.ycor() + i * 0.5)
+            bullet.goto(bullet.xcor(), bullet.ycor() + i * 1)
