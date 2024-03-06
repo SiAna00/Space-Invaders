@@ -7,19 +7,11 @@ from scoreboard import ScoreBoard
 from spaceship import SpaceShip
 
 
-def create_my_bullet():
-    global my_bullets
-    new_bullet = Bullet(my_ship.xcor(), my_ship.ycor(), "white")
-    my_bullets.append(new_bullet)
-
-
 def getting_killed(creature, bullet):
     if creature.distance(bullet) <= 20:
         creature.reset()
         bullet.reset()
 
-
-my_bullets = [ ]
 
 # Create and customize screen
 screen = Screen()
@@ -33,6 +25,7 @@ scoreboard = ScoreBoard()
 
 # Create ship
 my_ship = SpaceShip()
+my_bullets = my_ship.my_bullets
 
 # Create alien army
 aliens = AlienShips()
@@ -43,16 +36,26 @@ barriers = Barrier()
 # Move ship on key press
 screen.onkeypress(my_ship.move_right, "Right")
 screen.onkeypress(my_ship.move_left, "Left")
-screen.onkeypress(create_my_bullet, "space")
+screen.onkeypress(my_ship.create_bullets, "space")
 screen.listen()
 
 while True:
     screen.update()
 
     aliens.move()
-
     aliens.create_bullet()
-    aliens.shoot(-2)
+    aliens.shoot(-1)
+
+    # Detect when my_ship is hit with alien bullets
+    for bullet in aliens.all_alien_bullets:
+        getting_killed(my_ship, bullet)
+
+    # Detect when alien bullets hit barriers
+    for bullet in aliens.all_alien_bullets:
+        for barrier in barriers.barriers:
+            if bullet.distance(barrier) < 20:
+                barrier.reset()
+                bullet.reset()
 
     if my_bullets != None:
         for bullet in my_bullets:
@@ -61,7 +64,13 @@ while True:
         # Detect when aliens are hit with my_bullet
         for alien in aliens.aliens:
             for bullet in my_bullets:
-                getting_killed(alien, bullet)
+                """ getting_killed(alien, bullet) """
+                if alien.distance(bullet) <= 20:
+                    scoreboard.update_score()
+                    alien.reset()
+                    aliens.aliens.remove(alien)
+                    bullet.reset()
+                    
 
         # Detect when my_bullet hits barriers
         for barrier in barriers.barriers:
@@ -76,18 +85,5 @@ while True:
                 if bullet.distance(my_bullet) < 2:
                     bullet.reset()
                     my_bullet.reset()
-
-    # Detect when my_ship is hit with alien bullets
-    for bullet in aliens.all_alien_bullets:
-        if my_ship.distance(bullet) < 20:
-            my_ship.reset()
-            bullet.reset()
-
-    # Detect when alien bullets hit barriers
-    for bullet in aliens.all_alien_bullets:
-        for barrier in barriers.barriers:
-            if bullet.distance(barrier) < 20:
-                barrier.reset()
-                bullet.reset()
 
 screen.exitonclick()

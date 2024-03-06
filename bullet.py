@@ -5,7 +5,7 @@ class Bullet(Turtle):
         super().__init__()
         self.up()
         self.shape("square")
-        self.shapesize(stretch_wid=0.1, stretch_len=0.1)
+        self.shapesize(stretch_wid=0.3, stretch_len=0.1)
         self.color(color)
         self.goto(x, y)
 

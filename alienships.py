@@ -2,12 +2,13 @@ from turtle import *
 from bullet import Bullet
 import random
 
+# Create custom shape from gif
 addshape(name="alien.gif", shape=None)
 
 class AlienShips():
     def __init__(self):
         self.aliens = []
-        self.create_alienships(-260, 220)
+        self.create_alienships(-260, 200)
         self.all_alien_bullets = []
 
     def create_alienships(self, start_pos_x, start_pos_y):
