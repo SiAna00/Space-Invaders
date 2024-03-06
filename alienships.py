@@ -11,14 +11,14 @@ class AlienShips():
         self.all_alien_bullets = []
 
     def create_alienships(self, start_pos_x, start_pos_y):
-        for j in range(2):
+        for j in range(3):
             for i in range(18):
                 new_alien = Turtle()
                 new_alien.up()
+                new_alien.goto(start_pos_x + i * 30, start_pos_y + j * 30)
                 new_alien.right(90)
                 new_alien.shape("alien.gif")
                 new_alien.color("green")
-                new_alien.goto(start_pos_x + i * 30, start_pos_y + j * 30)
                 self.aliens.append(new_alien)
 
 

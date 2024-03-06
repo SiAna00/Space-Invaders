@@ -7,8 +7,9 @@ from spaceship import SpaceShip
 
 
 def create_my_bullet():
-    global my_bullet
-    my_bullet = Bullet(my_ship.xcor(), my_ship.ycor(), "white")
+    global my_bullets
+    new_bullet = Bullet(my_ship.xcor(), my_ship.ycor(), "white")
+    my_bullets.append(new_bullet)
 
 
 def getting_killed(creature, bullet):
@@ -17,7 +18,7 @@ def getting_killed(creature, bullet):
         bullet.reset()
 
 
-my_bullet = None
+my_bullets = [ ]
 
 # Create and customize screen
 screen = Screen()
@@ -49,24 +50,28 @@ while True:
     aliens.create_bullet()
     aliens.shoot(-2)
 
-    if my_bullet != None:
-        my_bullet.shoot(2)
+    if my_bullets != None:
+        for bullet in my_bullets:
+            bullet.shoot(2)
 
         # Detect when aliens are hit with my_bullet
         for alien in aliens.aliens:
-            getting_killed(alien, my_bullet)
+            for bullet in my_bullets:
+                getting_killed(alien, bullet)
 
         # Detect when my_bullet hits barriers
         for barrier in barriers.barriers:
-            if my_bullet.distance(barrier) <= 20:
-                barrier.reset()
-                my_bullet.reset()
+            for bullet in my_bullets:
+                if bullet.distance(barrier) <= 20:
+                    barrier.reset()
+                    bullet.reset()
 
-        # detect when my_bullet collides with alien bullets
+        # Detect when my_bullet collides with alien bullets
         for bullet in aliens.all_alien_bullets:
-            if bullet.distance(my_bullet) < 1:
-                bullet.reset()
-                my_bullet.reset()
+            for my_bullet in my_bullets:
+                if bullet.distance(my_bullet) < 2:
+                    bullet.reset()
+                    my_bullet.reset()
 
     # Detect when my_ship is hit with alien bullets
     for bullet in aliens.all_alien_bullets:

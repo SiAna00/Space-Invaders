@@ -13,12 +13,12 @@ class SpaceShip(Turtle):
     def move_right(self):
         self.forward(20)
 
-        if self.pos() == (-300.00, -270.00):
+        if self.pos() == (-300.00, -270):
             self.setx(self.xcor() + 20)
 
 
     def move_left(self):
         self.backward(20)
 
-        if self.xcor() == (300.00, -270.00):
+        if self.pos() == (300.00, -270):
             self.setx(self.xcor() - 20)
