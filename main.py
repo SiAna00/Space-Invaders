@@ -3,6 +3,7 @@ from turtle import *
 from alienships import AlienShips
 from barriers import Barrier
 from bullet import Bullet
+from scoreboard import ScoreBoard
 from spaceship import SpaceShip
 
 
@@ -26,6 +27,9 @@ screen.title("Space Invaders")
 screen.setup(width=600, height=600)
 screen.bgcolor("black")
 screen.tracer(0)
+
+# Create scoreboard
+scoreboard = ScoreBoard()
 
 # Create ship
 my_ship = SpaceShip()
