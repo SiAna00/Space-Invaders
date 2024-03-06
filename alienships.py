@@ -25,7 +25,7 @@ class AlienShips():
 
     def move(self):
         for individual in self.aliens:
-            individual.forward(0.01)
+            individual.forward(0.02)
 
     
     def create_bullet(self):

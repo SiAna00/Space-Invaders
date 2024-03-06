@@ -12,6 +12,15 @@ def getting_killed(creature, bullet):
         creature.reset()
         bullet.reset()
 
+        if creature == alien:
+            scoreboard.update_score()
+            aliens.aliens.remove(alien)
+
+        elif creature == my_ship:
+            global game_on
+            scoreboard.game_over()
+            game_on = False
+
 
 # Create and customize screen
 screen = Screen()
@@ -39,7 +48,9 @@ screen.onkeypress(my_ship.move_left, "Left")
 screen.onkeypress(my_ship.create_bullets, "space")
 screen.listen()
 
-while True:
+game_on = True
+
+while game_on:
     screen.update()
 
     aliens.move()
@@ -64,13 +75,7 @@ while True:
         # Detect when aliens are hit with my_bullet
         for alien in aliens.aliens:
             for bullet in my_bullets:
-                """ getting_killed(alien, bullet) """
-                if alien.distance(bullet) <= 20:
-                    scoreboard.update_score()
-                    alien.reset()
-                    aliens.aliens.remove(alien)
-                    bullet.reset()
-                    
+                getting_killed(alien, bullet)                    
 
         # Detect when my_bullet hits barriers
         for barrier in barriers.barriers:
